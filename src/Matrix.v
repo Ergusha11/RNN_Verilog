@@ -253,3 +253,52 @@ module hidden2hidden_1x20_20x20 #(
 
 endmodule
 
+module hiddenComplete #(
+    parameter integer INPUT_SIZE         = 1 ,   // X: Tamaño del vector de entrada
+    parameter integer INPUT_HIDDEN_SIZE  = 20,  // X: Tamaño del vector de entrada
+    parameter integer HIDDEN_SIZE        = 20,  // M: Tamaño de la capa oculta
+    parameter integer BW_IN              = 32,
+    parameter integer BW_OUT             = 32
+)(
+    input  wire signed [INPUT_HIDDEN_SIZE*BW_IN-1:0]   hidden_vector_bus, 
+    input  wire signed [INPUT_SIZE*BW_IN-1:0]          input_vector_bus,
+    output wire signed [HIDDEN_SIZE*BW_OUT-1:0] output_vector_bus
+);
+    
+    // --- 1. Multiplicación 1x1 por 1x20 (W_i2r_w0) ---
+    wire signed [BW_OUT-1:0] partial_products_input_ARRAY [HIDDEN_SIZE-1:0];
+
+    W_i2r_w0 i2h_input (
+        .X(input_vector_bus),
+        .Y1(partial_products_input_ARRAY[0]), .Y2(partial_products_input_ARRAY[1]), .Y3(partial_products_input_ARRAY[2]), .Y4(partial_products_input_ARRAY[3]),
+        .Y5(partial_products_input_ARRAY[4]), .Y6(partial_products_input_ARRAY[5]), .Y7(partial_products_input_ARRAY[6]), .Y8(partial_products_input_ARRAY[7]),
+        .Y9(partial_products_input_ARRAY[8]), .Y10(partial_products_input_ARRAY[9]), .Y11(partial_products_input_ARRAY[10]), .Y12(partial_products_input_ARRAY[11]),
+        .Y13(partial_products_input_ARRAY[12]), .Y14(partial_products_input_ARRAY[13]), .Y15(partial_products_input_ARRAY[14]), .Y16(partial_products_input_ARRAY[15]),
+        .Y17(partial_products_input_ARRAY[16]), .Y18(partial_products_input_ARRAY[17]), .Y19(partial_products_input_ARRAY[18]), .Y20(partial_products_input_ARRAY[19])
+    );
+
+    // --- 2. Multiplicación 1x20 por 20x20 (hidden2hidden) ---
+    wire signed [HIDDEN_SIZE*BW_OUT-1:0] partial_products_hidden_BUS; // [639:0]
+
+    hidden2hidden_1x20_20x20 h2h_mult(
+        .input_vector_bus(hidden_vector_bus),
+        .output_vector_bus(partial_products_hidden_BUS) 
+    );
+
+
+    wire signed [HIDDEN_SIZE*BW_OUT-1:0] partial_products_input_BUS; // [639:0]
+
+    genvar j_pack;
+    generate
+        for (j_pack = 0; j_pack < HIDDEN_SIZE; j_pack = j_pack + 1) begin : pack_input_result_bus
+            // Orden MSB
+            localparam integer base_idx = (HIDDEN_SIZE - 1 - j_pack) * BW_OUT;
+            assign partial_products_input_BUS[base_idx +: BW_OUT] = partial_products_input_ARRAY[j_pack];
+        end
+    endgenerate
+
+
+    // --- 4. Suma final (Corregida) ---
+    assign output_vector_bus = partial_products_input_BUS + partial_products_hidden_BUS;
+
+endmodule

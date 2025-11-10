@@ -10,7 +10,7 @@ module tb_hidden2hidden;
     localparam integer CLK_PERIOD  = 10; // Periodo del reloj en ns
 
     // --- CAMBIO: Parámetros de Punto Fijo ---
-    localparam integer FRAC_BITS         = 20;
+    localparam integer FRAC_BITS         = 15;
     localparam real    SCALE_FACTOR_REAL = 1.0 * (2**FRAC_BITS); // 1048576.0
     
     // El valor 0.5 en el formato Q(BW_IN - 1 - FRAC_BITS).FRAC_BITS
@@ -54,7 +54,7 @@ module tb_hidden2hidden;
     initial begin
         
         $display("==================================================");
-        $display("Inicio de la simulación del testbench para hidden2hidden");
+        $display("Inicio de la simulacion del testbench para hidden2hidden");
         // --- CAMBIO: Mensaje de formato dinámico ---
         $display("Formato de datos asumido: Punto fijo Q%0d.%0d", BW_IN - 1 - FRAC_BITS, FRAC_BITS);
         $display("==================================================");
@@ -65,7 +65,7 @@ module tb_hidden2hidden;
         @(posedge clk);
         @(posedge clk);
         rst_n = 1'b1; // Liberar el reset
-        $display("[%0t ns] Reset liberado. El sistema está operativo.", $time);
+        $display("[%0t ns] Reset liberado. El sistema esta operativo.", $time);
         
         @(posedge clk);
 
@@ -102,7 +102,7 @@ module tb_hidden2hidden;
         // --- 4. Finalizar simulación ---
         #100;
 
-        $display("\nSimulación completada.");
+        $display("\nSimulacion completada.");
         $stop;
     end
 
