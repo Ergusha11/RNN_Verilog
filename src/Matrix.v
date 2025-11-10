@@ -302,3 +302,76 @@ module hiddenComplete #(
     assign output_vector_bus = partial_products_input_BUS + partial_products_hidden_BUS;
 
 endmodule
+
+module hidden_output #(
+    parameter integer INPUT_SIZE = 20,  // Longitud del vector
+    parameter integer BW_IN      = 32,  // Ancho de bits de cada elemento de entrada
+    parameter integer BW_OUT     = 32   // Ancho de bits de la salida
+)(
+    // Vector de entrada 1x20
+    input  wire signed [INPUT_SIZE*BW_IN-1:0]   input_vector_bus,
+    
+    // Resultado escalar 1x1 
+    output wire signed [BW_OUT-1:0]             output_scalar
+);
+
+    // --- 1. Desempaquetar Bus de Entrada ---
+    wire signed [BW_IN-1:0] input_elements [0:INPUT_SIZE-1];
+    
+    genvar i_unpack;
+    generate
+        for (i_unpack = 0; i_unpack < INPUT_SIZE; i_unpack = i_unpack + 1) begin : unpack_input_bus
+            // orden MSB
+            localparam integer base_idx = (INPUT_SIZE - 1 - i_unpack) * BW_IN;
+            assign input_elements[i_unpack] = input_vector_bus[base_idx +: BW_IN];
+        end
+    endgenerate
+
+    
+    // --- 2. Multiplicaciones en Paralelo ---
+    wire signed [BW_OUT-1:0] partial_products [0:INPUT_SIZE-1];
+
+    W_h2o_r0  mul_0  (.X(input_elements[0]),  .Y(partial_products[0]));
+    W_h2o_r1  mul_1  (.X(input_elements[1]),  .Y(partial_products[1]));
+    W_h2o_r2  mul_2  (.X(input_elements[2]),  .Y(partial_products[2]));
+    W_h2o_r3  mul_3  (.X(input_elements[3]),  .Y(partial_products[3]));
+    W_h2o_r4  mul_4  (.X(input_elements[4]),  .Y(partial_products[4]));
+    W_h2o_r5  mul_5  (.X(input_elements[5]),  .Y(partial_products[5]));
+    W_h2o_r6  mul_6  (.X(input_elements[6]),  .Y(partial_products[6]));
+    W_h2o_r7  mul_7  (.X(input_elements[7]),  .Y(partial_products[7]));
+    W_h2o_r8  mul_8  (.X(input_elements[8]),  .Y(partial_products[8]));
+    W_h2o_r9  mul_9  (.X(input_elements[9]),  .Y(partial_products[9]));
+    W_h2o_r10 mul_10 (.X(input_elements[10]), .Y(partial_products[10]));
+    W_h2o_r11 mul_11 (.X(input_elements[11]), .Y(partial_products[11]));
+    W_h2o_r12 mul_12 (.X(input_elements[12]), .Y(partial_products[12]));
+    W_h2o_r13 mul_13 (.X(input_elements[13]), .Y(partial_products[13]));
+    W_h2o_r14 mul_14 (.X(input_elements[14]), .Y(partial_products[14]));
+    W_h2o_r15 mul_15 (.X(input_elements[15]), .Y(partial_products[15]));
+    W_h2o_r16 mul_16 (.X(input_elements[16]), .Y(partial_products[16]));
+    W_h2o_r17 mul_17 (.X(input_elements[17]), .Y(partial_products[17]));
+    W_h2o_r18 mul_18 (.X(input_elements[18]), .Y(partial_products[18]));
+    W_h2o_r19 mul_19 (.X(input_elements[19]), .Y(partial_products[19]));
+
+
+    // --- 3. Suma de Reducción ---
+    
+    reg signed [BW_OUT-1:0] output_scalar_reg;
+    
+    localparam integer ACC_WIDTH = BW_OUT + 5;
+    
+    integer k;
+    reg signed [ACC_WIDTH-1:0] sum_accumulator; 
+
+    always @(*) begin
+        sum_accumulator = {ACC_WIDTH{1'b0}}; 
+        
+        for (k = 0; k < INPUT_SIZE; k = k + 1) begin
+            sum_accumulator = sum_accumulator + partial_products[k];
+        end
+        
+        output_scalar_reg = sum_accumulator;
+    end
+
+    assign output_scalar = output_scalar_reg;
+
+endmodule
