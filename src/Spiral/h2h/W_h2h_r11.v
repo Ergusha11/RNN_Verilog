@@ -79,158 +79,218 @@ module W_h2h_r11 (
 
   //Multipliers:
 
-  wire signed [46:0]
+  wire signed [51:0]
     w1,
-    w8,
-    w7,
-    w112,
-    w111,
-    w28,
-    w83,
-    w896,
-    w785,
-    w1776,
+    w4,
+    w3,
+    w48,
+    w51,
+    w1632,
+    w1629,
+    w64,
     w1693,
-    w332,
-    w1361,
-    w1354,
-    w677,
-    w2708,
-    w4401,
-    w5312,
-    w5311,
-    w4634,
-    w2317,
-    w1792,
-    w3519,
-    w8019,
-    w778,
-    w389,
-    w1328,
-    w1717,
-    w2181,
-    w3112,
-    w3897,
-    w3434,
-    w2757,
-    w224,
-    w3673,
-    w7029,
-    w7794,
-    w7801,
-    w448,
-    w3225,
-    w6224,
-    w2999,
-    w12900,
-    w9227,
-    w7104,
-    w10329,
-    w25800,
-    w25717,
+    w32,
+    w1661,
+    w12288,
+    w10627,
+    w13032,
+    w14693,
+    w6644,
+    w17271,
+    w26064,
+    w43335,
+    w768,
+    w9859,
+    w138168,
+    w128309,
+    w235088,
+    w225229,
+    w98304,
+    w54969,
+    w54972,
+    w13743,
+    w219876,
+    w348185,
+    w256,
+    w348441,
+    w524288,
+    w525981,
+    w276336,
+    w249645,
+    w834048,
+    w844675,
+    w696370,
+    w148305,
+    w4096,
+    w344089,
     w13544,
-    w12173,
-    w664,
-    w16038,
-    w2181_,
-    w1354_,
-    w10888,
-    w10888_,
-    w7038,
-    w7029_,
-    w8802,
-    w8802_,
-    w7346,
-    w2757_,
-    w1693_,
-    w6280,
-    w6280_;
+    w330545,
+    w170032,
+    w696013,
+    w705872,
+    w44117,
+    w157744,
+    w407389,
+    w212608,
+    w194781,
+    w204,
+    w249441,
+    w249438,
+    w124719,
+    w352936,
+    w308819,
+    w295275,
+    w2,
+    w295273,
+    w100492,
+    w25123,
+    w200984,
+    w726965,
+    w630976,
+    w95989,
+    w16384,
+    w141103,
+    w140847,
+    w16,
+    w308803,
+    w558448,
+    w34903,
+    w590550,
+    w555647,
+    w899736,
+    w112467,
+    w21254,
+    w513236,
+    w69806,
+    w69806_,
+    w43335_,
+    w348441_,
+    w224934,
+    w224934_,
+    w389562,
+    w281694,
+    w281694_,
+    w88234,
+    w88234_,
+    w54176,
+    w54176_,
+    w200984_;
 
   assign w1 = X;
-  assign w8 = w1 << 3;
-  assign w7 = w8 - w1;
-  assign w112 = w7 << 4;
-  assign w111 = w112 - w1;
-  assign w28 = w7 << 2;
-  assign w83 = w111 - w28;
-  assign w896 = w7 << 7;
-  assign w785 = w896 - w111;
-  assign w1776 = w111 << 4;
-  assign w1693 = w1776 - w83;
-  assign w332 = w83 << 2;
-  assign w1361 = w1693 - w332;
-  assign w1354 = w1361 - w7;
-  assign w677 = w1354 >> 1;
-  assign w2708 = w677 << 2;
-  assign w4401 = w1693 + w2708;
-  assign w5312 = w83 << 6;
-  assign w5311 = w5312 - w1;
-  assign w4634 = w5311 - w677;
-  assign w2317 = w4634 >> 1;
-  assign w1792 = w7 << 8;
-  assign w3519 = w5311 - w1792;
-  assign w8019 = w5311 + w2708;
-  assign w778 = w785 - w7;
-  assign w389 = w778 >> 1;
-  assign w1328 = w83 << 4;
-  assign w1717 = w389 + w1328;
-  assign w2181 = w389 + w1792;
-  assign w3112 = w389 << 3;
-  assign w3897 = w785 + w3112;
-  assign w3434 = w1717 << 1;
-  assign w2757 = w3434 - w677;
-  assign w224 = w7 << 5;
-  assign w3673 = w3897 - w224;
-  assign w7029 = w1717 + w5312;
-  assign w7794 = w3897 << 1;
-  assign w7801 = w7 + w7794;
-  assign w448 = w7 << 6;
-  assign w3225 = w3673 - w448;
-  assign w6224 = w389 << 4;
-  assign w2999 = w6224 - w3225;
-  assign w12900 = w3225 << 2;
-  assign w9227 = w12900 - w3673;
-  assign w7104 = w111 << 6;
-  assign w10329 = w3225 + w7104;
-  assign w25800 = w3225 << 3;
-  assign w25717 = w25800 - w83;
+  assign w4 = w1 << 2;
+  assign w3 = w4 - w1;
+  assign w48 = w3 << 4;
+  assign w51 = w3 + w48;
+  assign w1632 = w51 << 5;
+  assign w1629 = w1632 - w3;
+  assign w64 = w1 << 6;
+  assign w1693 = w1629 + w64;
+  assign w32 = w1 << 5;
+  assign w1661 = w1629 + w32;
+  assign w12288 = w3 << 12;
+  assign w10627 = w12288 - w1661;
+  assign w13032 = w1629 << 3;
+  assign w14693 = w1661 + w13032;
+  assign w6644 = w1661 << 2;
+  assign w17271 = w10627 + w6644;
+  assign w26064 = w1629 << 4;
+  assign w43335 = w17271 + w26064;
+  assign w768 = w3 << 8;
+  assign w9859 = w10627 - w768;
+  assign w138168 = w17271 << 3;
+  assign w128309 = w138168 - w9859;
+  assign w235088 = w14693 << 4;
+  assign w225229 = w235088 - w9859;
+  assign w98304 = w3 << 15;
+  assign w54969 = w98304 - w43335;
+  assign w54972 = w3 + w54969;
+  assign w13743 = w54972 >> 2;
+  assign w219876 = w54969 << 2;
+  assign w348185 = w128309 + w219876;
+  assign w256 = w1 << 8;
+  assign w348441 = w348185 + w256;
+  assign w524288 = w1 << 19;
+  assign w525981 = w1693 + w524288;
+  assign w276336 = w17271 << 4;
+  assign w249645 = w525981 - w276336;
+  assign w834048 = w1629 << 9;
+  assign w844675 = w10627 + w834048;
+  assign w696370 = w348185 << 1;
+  assign w148305 = w844675 - w696370;
+  assign w4096 = w1 << 12;
+  assign w344089 = w348185 - w4096;
   assign w13544 = w1693 << 3;
-  assign w12173 = w25717 - w13544;
-  assign w664 = w83 << 3;
-  assign w16038 = w8019 << 1;
-  assign w2181_ = -1 * w2181;
-  assign w1354_ = -1 * w1354;
-  assign w10888 = w1361 << 3;
-  assign w10888_ = -1 * w10888;
-  assign w7038 = w3519 << 1;
-  assign w7029_ = -1 * w7029;
-  assign w8802 = w4401 << 1;
-  assign w8802_ = -1 * w8802;
-  assign w7346 = w3673 << 1;
-  assign w2757_ = -1 * w2757;
-  assign w1693_ = -1 * w1693;
-  assign w6280 = w785 << 3;
-  assign w6280_ = -1 * w6280;
+  assign w330545 = w344089 - w13544;
+  assign w170032 = w10627 << 4;
+  assign w696013 = w525981 + w170032;
+  assign w705872 = w9859 + w696013;
+  assign w44117 = w705872 >> 4;
+  assign w157744 = w9859 << 4;
+  assign w407389 = w249645 + w157744;
+  assign w212608 = w1661 << 7;
+  assign w194781 = w407389 - w212608;
+  assign w204 = w51 << 2;
+  assign w249441 = w249645 - w204;
+  assign w249438 = w249441 - w3;
+  assign w124719 = w249438 >> 1;
+  assign w352936 = w44117 << 3;
+  assign w308819 = w352936 - w44117;
+  assign w295275 = w308819 - w13544;
+  assign w2 = w1 << 1;
+  assign w295273 = w295275 - w2;
+  assign w100492 = w295273 - w194781;
+  assign w25123 = w100492 >> 2;
+  assign w200984 = w25123 << 3;
+  assign w726965 = w525981 + w200984;
+  assign w630976 = w9859 << 6;
+  assign w95989 = w726965 - w630976;
+  assign w16384 = w1 << 14;
+  assign w141103 = w124719 + w16384;
+  assign w140847 = w141103 - w256;
+  assign w16 = w1 << 4;
+  assign w308803 = w308819 - w16;
+  assign w558448 = w249645 + w308803;
+  assign w34903 = w558448 >> 4;
+  assign w590550 = w295275 << 1;
+  assign w555647 = w590550 - w34903;
+  assign w899736 = w344089 + w555647;
+  assign w112467 = w899736 >> 3;
+  assign w21254 = w10627 << 1;
+  assign w513236 = w128309 << 2;
+  assign w69806 = w34903 << 1;
+  assign w69806_ = -1 * w69806;
+  assign w43335_ = -1 * w43335;
+  assign w348441_ = -1 * w348441;
+  assign w224934 = w112467 << 1;
+  assign w224934_ = -1 * w224934;
+  assign w389562 = w194781 << 1;
+  assign w281694 = w140847 << 1;
+  assign w281694_ = -1 * w281694;
+  assign w88234 = w44117 << 1;
+  assign w88234_ = -1 * w88234;
+  assign w54176 = w1693 << 5;
+  assign w54176_ = -1 * w54176;
+  assign w200984_ = -1 * w200984;
 
-  assign Y[0] = w664[46:15];
-  assign Y[1] = w2999[46:15];
-  assign Y[2] = w9227[46:15];
-  assign Y[3] = w4634[46:15];
-  assign Y[4] = w7801[46:15];
-  assign Y[5] = w1717[46:15];
-  assign Y[6] = w16038[46:15];
-  assign Y[7] = w2181_[46:15];
-  assign Y[8] = w1354_[46:15];
-  assign Y[9] = w10888_[46:15];
-  assign Y[10] = w7038[46:15];
-  assign Y[11] = w7029_[46:15];
-  assign Y[12] = w12173[46:15];
-  assign Y[13] = w8802_[46:15];
-  assign Y[14] = w10329[46:15];
-  assign Y[15] = w7346[46:15];
-  assign Y[16] = w2757_[46:15];
-  assign Y[17] = w1693_[46:15];
-  assign Y[18] = w6280_[46:15];
-  assign Y[19] = w3897[46:15];
+  assign Y[0] = w21254[51:20];
+  assign Y[1] = w95989[51:20];
+  assign Y[2] = w295275[51:20];
+  assign Y[3] = w148305[51:20];
+  assign Y[4] = w249645[51:20];
+  assign Y[5] = w54972[51:20];
+  assign Y[6] = w513236[51:20];
+  assign Y[7] = w69806_[51:20];
+  assign Y[8] = w43335_[51:20];
+  assign Y[9] = w348441_[51:20];
+  assign Y[10] = w225229[51:20];
+  assign Y[11] = w224934_[51:20];
+  assign Y[12] = w389562[51:20];
+  assign Y[13] = w281694_[51:20];
+  assign Y[14] = w330545[51:20];
+  assign Y[15] = w235088[51:20];
+  assign Y[16] = w88234_[51:20];
+  assign Y[17] = w54176_[51:20];
+  assign Y[18] = w200984_[51:20];
+  assign Y[19] = w124719[51:20];
 
 endmodule //multiplier_block
